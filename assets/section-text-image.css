@@ -1,0 +1,30 @@
+.section-text-image {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--section-padding-top, 20px); 
+  padding-bottom: var(--section-padding-bottom, 20px);
+}
+
+.section-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.section-image {
+  max-height: 100px;
+  width: 100px;
+  border-radius: 30px;
+}
+
+.placeholder-image {
+  max-height: 40px;
+  width: auto;
+  background-color: #f0f0f0;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  display: inline-block;
+}

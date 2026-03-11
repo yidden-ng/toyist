@@ -1,0 +1,122 @@
+{{ 'section-text-image.css' | asset_url | stylesheet_tag }}
+
+<div class="section-text-image color-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.padding_top }}px;
+         padding-bottom: {{ section.settings.padding_bottom }}px;"> 
+
+<div class="section-text-image color-{{ section.settings.color_scheme }}">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'richtext' %}
+        <span class="section-text text-color-{{ section.settings.color_scheme }}" {{ block.shopify_attributes }}>
+          {{ block.settings.richtext }}
+        </span>
+
+      {% when 'image' %}
+        {% if block.settings.image %}
+          {{ block.settings.image | image_url: width: 100 | image_tag: class: 'section-image', alt: block.settings.image.alt | escape}}
+          {% else %}
+              {{ 'image' | placeholder_svg_tag: 'section-image placeholder-image' }}
+        {% endif %}
+
+      {% when 'product' %}
+        {% assign product = block.settings.product_link %}
+        {% if product.featured_image %}
+          <a href="{{ product.url }}" class="product-link">
+            {{ product.featured_image | image_url: width: 500 | image_tag: class: 'section-image', alt: product.title, width: 100, height: 'auto' }}
+          </a>
+        {% else %}
+          <a href="#" class="product-link">
+            {{ 'image' | placeholder_svg_tag: 'section-image placeholder-image' }}
+          </a>
+        {% endif %}
+   
+    {% endcase %}
+  {% endfor %}
+</div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Text Image Section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+       "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20 
+    }
+  ],
+  "blocks": [
+    {
+      "type": "richtext",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Text",
+          "default":"<h2>Default Text</h2>"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name":"Product",
+      "settings": 
+      [
+        {
+          "type": "product",
+          "id": "product_link",
+          "label":"Select Product'"
+        }
+      ]
+
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text & Image Section",
+      "blocks": [
+        { "type": "image" },
+        { "type": "richtext" },
+        { "type": "product" },
+        { "type": "image" }
+      ]
+     
+    }
+  ]
+}
+{% endschema %}
