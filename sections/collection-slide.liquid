@@ -1,0 +1,157 @@
+{{ 'collection-carousel.css' | asset_url | stylesheet_tag }}
+  <div class="scroll-container color-{{ section.settings.color_scheme_id }}">
+    <div class="wrap_content {% unless section.settings.progress_id %}no-progress{% endunless %}">
+      <div class="text_left_wrapper">
+        <div class="main-text-left">
+          {{ section.settings.text-main }}
+          </div>
+          <div class="text_des" style="font-size: {{ section.settings.text-size }};">
+            {{ section.settings.text_des }}
+          </div>
+      </div>
+  
+      <div class="collection-holder"> 
+      {% for block in section.blocks %}
+        <div class="collection-title-image">
+          <div class="highlight_text">
+            {% if block.settings.text_highlight != blank %}
+              {{ block.settings.text_highlight }}
+            {% endif %}
+          </div>
+          {% if block.settings.collection_id != blank %}
+     
+            <a href="{{ block.settings.collection_id.url }}">
+              {% if block.settings.image_id %}
+                <img src="{{ block.settings.image_id | img_url: '600x600' }}" alt="block.settings.image_id" class = "image_collection">
+                {% else %}
+                <img src="{{ block.settings.collection_id.featured_image | img_url: '600x600' }}" alt="block.collection_id.feature_image.alt" class="image_collection">
+              {% endif %}
+              <div class="title">
+                {% if block.settings.collection_id.title != blank %}
+                   {{ block.settings.collection_id.title }}
+                {% endif %}
+              </div>
+            </a>
+              {% else  %}
+              {{ 'collection-1' | placeholder_svg_tag: 'image_collection' }}
+              <div class="title">
+                {{ block.settings.collection_title }}
+              </div>
+            {% endif %} 
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+ <script src="{{ 'collection-carousel.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Collection Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text-main",
+      "label": "Header",
+      "default":"FASHION THAT FLOWS WITH THE SEASONS"
+    },
+    {
+      "type": "header",
+      "content":"Schemes"
+    },
+    {
+      "type": "color_scheme",
+      "id":"color_scheme_id",
+      "label": "Pick Scheme"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "text",
+      "id": "text_des",
+      "label": "Description",
+      "default":"Explore our latest collection of timeless fashion. From classic styles to modern trends,  find the perfect look for every season. Shop now and elevate your wardrobe!"
+    },
+    {
+      "type": "checkbox",
+      "id": "progress_id",
+      "label":"Enable carousel progress bar"
+    },
+    {
+      "type": "select",
+      "id": "text-size",
+      "label": "Size for text",
+      "options": [
+        {"value": "14px", "label": "Small"},
+        {"value": "16px", "label": "Medium"},
+        {"value": "18px", "label": "Large"},
+        {"value": "20px", "label": "Extra Large"}
+      ],
+      "default": "16px"
+    }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name":"Collection Carousel",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection_id",
+            "label": "Collection Here"
+          },
+          {
+            "type": "header",
+            "content": "Custom Content"
+          },
+          {
+            "type": "image_picker",
+            "id":"image_id",
+            "label": "Collection Image",
+            "info": "It will replace the original collection's image"
+          },
+          {
+            "type": "text",
+            "id": "collection_title",
+            "label": "Title",
+            "info": "This will replace the Collection Title",
+            "default":"Collection Title"
+          },
+          {
+            "type":"text",
+            "id": "text_highlight",
+            "label": "High Light Text",
+            "default":"High Light Text Here"
+          }
+        ]
+      }
+     
+    ],
+
+  "presets": [
+    {
+      "name": "Collection Carousel",
+      "blocks":[
+        {
+          "type": "collection",
+          "settings": {}
+        },
+         {
+          "type": "collection",
+          "settings": {}
+        },
+         {
+          "type": "collection",
+          "settings": {}
+        },
+         {
+          "type": "collection",
+          "settings": {}
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

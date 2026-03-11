@@ -1,0 +1,142 @@
+.wrap_content {
+  display: block;
+  justify-content: space-between;
+}
+
+@media (min-width: 600px) {
+  body{
+    overflow-x: hidden;
+  }
+
+.highlight_text {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease, color 0.6s ease;
+  transform: translateY(10px);
+  font-weight: 600;           
+  font-size: 1.5rem;           
+  text-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+}
+
+.highlight_text.visible {
+  opacity: 1;
+  transform: translateY(0);     
+}
+
+  .wrap_content {
+    display: flex;
+      position: sticky;
+  top: 0;
+  }
+
+.wrap_content::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    black var(--progress, 0%),
+    rgb(194, 193, 193) var(--progress, 0%)
+  );
+  border-radius: 7px;
+  } 
+
+  .wrap_content.no-progress::after {
+  display: none;
+}
+
+  
+
+  .scroll-container {
+    position: relative;
+  }
+
+  .image_collection{
+    width: 600px !important;
+    height: 400px !important;
+    }
+  
+    .collection-holder {
+      margin-top: 90px;
+      flex-shrink: 0;
+      gap: 40px
+    }
+
+    .text_left_wrapper {
+      flex: 0 0 auto;
+      width: 500px;
+      margin-top: 90px;
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    }
+
+    .text_left_wrapper.fade-left {
+      opacity: 0;
+      transform: translateX(-120px) rotateZ(-2deg);
+    }
+
+
+}
+
+
+.text_left_wrapper {
+  padding: 30px;
+  display: grid;
+}
+
+.main-text-left {
+  width: 100%;
+  height: max-content;
+  margin: auto;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.collection-title-image {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 20px;
+  position: relative;
+}
+
+.highlight_text {
+  position: absolute;
+  top: 50%;
+  left: -15px;
+  border: solid ;
+  border-radius: 55px;
+  background: white;
+  width: max-content;
+  padding: 8px;
+}
+
+.image_collection{
+  height: 200px;
+  border: solid;
+  border-radius: 10%;
+  flex-shrink: 0;
+  width: 300px;
+ 
+  background: rgb(214, 210, 210);
+}
+
+.collection-holder{
+  display: flex;
+ overflow-x: auto; 
+  gap: 20px;
+}
+
+
+
+.collection-holder::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari */
+}
+
+.collection-title-image a {
+  text-decoration: none; /* remove underline from the link */
+  color: inherit;        /* keep the text color */
+}
